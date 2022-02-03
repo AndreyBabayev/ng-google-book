@@ -1,0 +1,45 @@
+<div class="book-tabs">
+  <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
+    <mat-tab label="About">
+      <p *ngIf="book.parent_platforms?.length" class="book-tabs-par">
+        Platforms:
+        <span *ngFor="let book of book.parent_platforms; let last = last"
+          >{{ book.platform.name }}<span *ngIf="!last">, </span></span
+        >
+      </p>
+      <p *ngIf="book.publishers?.length" class="book-tabs-par">
+        Publishers:
+        <span *ngFor="let publisher of book.publishers; let last = last"
+          >{{ publisher.name }}<span *ngIf="!last">, </span></span
+        >
+      </p>
+      <p *ngIf="book.website" class="book-tabs-par">
+        Website:
+        <a class="book-tabs-link" href="{{ book.website }}" target="_blank">{{
+          book.website
+        }}</a>
+      </p>
+      <div class="book-description" [innerHTML]="book.description"></div>
+      <p class="game-tabs-votes">
+        <ng-container *ngFor="let rating of book.ratings">
+          <span *ngIf="rating.title === 'exceptional'">
+            <mat-icon class="book-votes-up">thumb_up</mat-icon>
+            <span class="book-votes-count">{{ rating.count || 0 }}</span>
+          </span>
+          <span *ngIf="rating.title === 'skip'">
+            <mat-icon class="book-votes-down">thumb_down</mat-icon>
+            <span class="book-votes-count">{{ rating.count || 0 }}</span>
+          </span>
+        </ng-container>
+      </p>
+    </mat-tab>
+    <mat-tab label="Screenshots" *ngIf="book.screenshots?.length">
+      <img
+        class="book-screenshot"
+        *ngFor="let screenshot of book.screenshots"
+        src="{{ screenshot.image }}"
+        alt="screenshot"
+      />
+    </mat-tab>
+     </mat-tab-group>
+</div>

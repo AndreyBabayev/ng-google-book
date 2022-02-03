@@ -1,0 +1,47 @@
+<div class="filters">
+    <mat-form-field>
+      <mat-label>Sort</mat-label>
+      <mat-select
+        panelClass="sort-select"
+        [(ngModel)]="sort"
+        (selectionChange)="searchBooks(sort)"
+      >
+        <mat-option value="all">All</mat-option>
+        <mat-option value="art">Art</mat-option>
+        <mat-option value="biography">Biografy</mat-option>
+        <mat-option value="computers">Computers</mat-option>
+        <mat-option value="history">History</mat-option>
+        <mat-option value="medical">Medical</mat-option>
+        <mat-option value="poetry">Poetry</mat-option>
+        <mat-option value="metacritic">Metacritic</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="books">  
+    <ng-container *ngFor="let book of books">
+      <div class="book" (click)="openBookDetails(book.id)">
+        <div class="book-thumb-container">
+          <img
+           *ngIf="book.background_image"
+            src="{{ book.background_image }}"
+            alt="thumbnail"
+            class="book-thumbnail"
+          />
+        <p *ngIf="!book.background_image">No image</p>
+        </div>
+        <div class="book-description">
+          <p class="book-name">{{ book.name }}</p>
+          <div class="book-platforms">
+            <img
+             *ngFor="let bookPlatform of book.parent_platforms"            
+              class="book-platform"
+              src="assets/images/platforms/{{ bookPlatform.platform.slug }}.svg"
+              alt="{{ bookPlatform.platform.slug }}"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-container> 
+  </div>
+  
